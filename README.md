@@ -1,82 +1,75 @@
-# Introduction-to-computer-vision-project
-Real-Time Object Detection and Classification of Face Masks
+# Real-Time Object Detection and Classification of Face Masks
 
-Project Overview
+## Project Overview
+This project focuses on developing a real-time system for detecting and classifying face masks. The system detects three classes: correctly-worn masks, incorrectly-worn masks, and no masks. It leverages two state-of-the-art object detection models: 
 
-This project focuses on developing a real-time object detection system to identify and classify face masks. The system detects three classes: correctly-worn masks, incorrectly-worn masks, and no masks. It leverages two deep learning models:
+1. **SSD (Single Shot Multibox Detector)**
+2. **YOLO (You Only Look Once)**
+3. **Bonus: SSD and YOLO with Vision Transformer (ViT) Backbone**
 
-SSD (Single Shot Multibox Detector)
+### Key Features
+- Dataset preprocessing and augmentation.
+- Training two object detection models (SSD and YOLO).
+- Enhanced versions of SSD and YOLO using Vision Transformers (ViT) for feature extraction.
+- Real-time inference using a webcam or video input.
 
-YOLO (You Only Look Once)
+---
 
-Key Features
+## File Structure
 
-Dataset preprocessing and augmentation.
+### Scripts
+1. **`dataset_preparation.py`**
+   - Prepares the dataset for CNN-based training.
+   - Includes data splitting, preprocessing, and saving.
 
-Training two object detection models (SSD and YOLO).
+2. **`dataset_preparation_vit.py`**
+   - Prepares the dataset for ViT-based training.
+   - Ensures compatibility with Vision Transformer input requirements.
 
-Real-time inference using a webcam or video input.
+3. **`ssd_training.py`**
+   - Implements the SSD model using MobileNetV2 as the backbone.
+   - Trains the model and saves the best-performing weights.
 
-File Structure
+4. **`ssd_training_vit.py`**
+   - Implements the SSD model using a Vision Transformer backbone.
+   - Trains the model and saves the best-performing weights.
 
-Scripts
+5. **`yolo_training.py`**
+   - Configures and trains the YOLO model using YOLOv5.
+   - Uses CNN-based feature extraction.
 
-dataset_preparation.py
+6. **`yolo_training_vit.py`**
+   - Configures and trains the YOLO model using Vision Transformer as the backbone.
 
-Prepares the dataset for training.
+7. **`full_workflow.py`** (Optional)
+   - Combines all steps for an end-to-end execution of the project.
 
-Includes data splitting, preprocessing, and saving.
+### Other Files
+- **`yolo_dataset.yaml`**: Configuration file for YOLO training (CNN-based).
+- **`yolo_vit_dataset.yaml`**: Configuration file for YOLO training (ViT-based).
+- **Saved Models**:
+  - `ssd_model.h5`: Trained SSD model weights with MobileNetV2 backbone.
+  - `ssd_vit_model.h5`: Trained SSD model weights with ViT backbone.
+  - YOLO weights are saved within the YOLOv5 project folder.
 
-ssd_training.py
+---
 
-Implements the SSD model using MobileNetV2 as the backbone.
+## Requirements
 
-Trains the model and saves the best-performing weights.
-
-yolo_training.py
-
-Configures and trains the YOLO model.
-
-Uses YOLOv5 pretrained weights for fine-tuning.
-
-full_workflow.py (Optional)
-
-Combines all steps for an end-to-end execution of the project.
-
-Other Files
-
-yolo_dataset.yaml: Configuration file for YOLO training.
-
-Saved Models:
-
-ssd_model.h5: Trained SSD model weights.
-
-YOLO weights are saved within the YOLOv5 project folder.
-
-Requirements
-
-Dependencies
-
+### Dependencies
 Ensure the following Python libraries are installed:
+- TensorFlow
+- OpenCV
+- Numpy
+- Pandas
+- Scikit-learn
+- PyTorch (for YOLOv5)
+- Transformers (for ViT)
+- tqdm
 
-TensorFlow
-
-OpenCV
-
-Numpy
-
-Pandas
-
-Scikit-learn
-
-PyTorch (for YOLOv5)
-
-tqdm
-
-Dataset
-
-Download the "Face Mask Detection" dataset from Kaggle. Extract and organize it in the following structure:
-
+### Dataset
+Download the "Face Mask Detection" dataset from [Kaggle](https://www.kaggle.com/datasets/andrewmvd/face-mask-detection). Extract and organize it in the following structure:
+```
 data/
     train/
         images/
@@ -84,59 +77,76 @@ data/
     val/
         images/
         labels/
+```
 
-How to Run
+---
 
-Dataset Preparation:
-Run the dataset_preparation.py script to preprocess and split the dataset:
+## How to Run
 
-python dataset_preparation.py
+1. **Dataset Preparation**:
+   - For CNN-based models:
+     ```bash
+     python dataset_preparation.py
+     ```
+   - For ViT-based models:
+     ```bash
+     python dataset_preparation_vit.py
+     ```
 
-Train SSD Model:
-Train the SSD model with the following command:
+2. **Train SSD Model**:
+   - CNN Backbone:
+     ```bash
+     python ssd_training.py
+     ```
+   - ViT Backbone:
+     ```bash
+     python ssd_training_vit.py
+     ```
 
-python ssd_training.py
+3. **Train YOLO Model**:
+   - CNN Backbone:
+     ```bash
+     python yolo_training.py
+     ```
+   - ViT Backbone:
+     ```bash
+     python yolo_training_vit.py
+     ```
 
-Train YOLO Model:
-Train the YOLO model using YOLOv5:
+4. **Full Workflow** (Optional):
+   Execute the entire workflow in one step:
+   ```bash
+   python full_workflow.py
+   ```
 
-python yolo_training.py
+---
 
-Full Workflow (Optional):
-Execute the entire workflow in one step:
-
-python full_workflow.py
-
-Evaluation
-
+## Evaluation
 The models are evaluated using:
+- **Precision and Recall**
+- **IoU (Intersection over Union)**
+- **mAP (Mean Average Precision)**
 
-Precision and Recall
+The evaluation metrics are logged during training and can be visualized for both CNN and ViT-based models.
 
-IoU (Intersection over Union)
+---
 
-mAP (Mean Average Precision)
-
-The evaluation metrics are logged during training and can be visualized for both SSD and YOLO models.
-
-Real-Time Inference
-
+## Real-Time Inference
 To test the models in real-time:
+1. Use the SSD or YOLO model weights (CNN or ViT-based).
+2. Implement a real-time detection script (not included here but can be added).
+3. Use a webcam or video file as input.
 
-Use the SSD or YOLO model weights.
+---
 
-Implement a real-time detection script (not included here but can be added).
+## Notes
+- Ensure that you have a GPU available for training.
+- YOLOv5 requires specific setup instructions available in the [YOLOv5 GitHub Repository](https://github.com/ultralytics/yolov5).
+- Vision Transformers require the `transformers` library from Hugging Face.
 
-Use a webcam or video file as input.
+---
 
-Notes
-
-Ensure that you have a GPU available for training.
-
-YOLOv5 requires specific setup instructions available in the YOLOv5 GitHub Repository.
-
-Credits
-
-Dataset: Kaggle - Face Mask Detection
+## Credits
+Dataset: [Kaggle - Face Mask Detection](https://www.kaggle.com/datasets/andrewmvd/face-mask-detection)
 
 Developed as part of a deep learning project on object detection.
